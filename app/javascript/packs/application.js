@@ -11,6 +11,7 @@ Rails.start()
 ActiveStorage.start()
 
 // VUE INIT
+import "stylesheets/application"
 
 import Vue from 'vue'
 import { App, plugin } from '@inertiajs/inertia-vue'

@@ -16,6 +16,9 @@ import "stylesheets/application"
 import Vue from 'vue'
 import { App, plugin } from '@inertiajs/inertia-vue'
 import { InertiaProgress } from '@inertiajs/progress'
+import * as Routes from './routes';
+
+Vue.prototype.$routes = Routes
 
 Vue.use(plugin)
 InertiaProgress.init()

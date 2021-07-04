@@ -6,8 +6,11 @@
 </template>
 
 <script>
+import Layout from '../layouts/ApplicationLayout'
+
 export default {
-  name: "Home"
+  layout: Layout,
+  name: "Home",
 }
 </script>
 

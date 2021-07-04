@@ -16,6 +16,9 @@ import Vue from 'vue'
 import { App, plugin } from '@inertiajs/inertia-vue'
 import { InertiaProgress } from '@inertiajs/progress'
 import * as Routes from './routes';
+import vuetify from "../plugins/vuetify";
+import '../utils/auth-interceptors'
+import '../stylesheets/application.scss'
 
 Vue.prototype.$routes = Routes
 
@@ -26,7 +29,10 @@ InertiaProgress.init()
 // will use Rails application.html.erb layout page
 const el = document.getElementById('app')
 
+console.log(vuetify)
+
 new Vue({
+  vuetify,
   render: h => h(App, {
     props: {
       initialPage: JSON.parse(el.dataset.page),
@@ -34,3 +40,5 @@ new Vue({
     },
   }),
 }).$mount(el)
+
+console.log("Vue App Mounted")

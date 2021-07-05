@@ -13,22 +13,25 @@
         ></v-avatar>
 
         <v-btn
-          v-for="link in links"
-          :key="link"
+          v-for="link in navbarLinks"
+          :key="link.title"
           text
+          :href="link.href"
         >
-          {{ link }}
+          {{ link.title }}
         </v-btn>
 
         <v-spacer></v-spacer>
 
         <v-responsive max-width="260">
           <v-text-field
+            placeholder="Buscar"
             dense
             flat
             hide-details
             rounded
             solo-inverted
+            append-icon="fas fa-search"
           ></v-text-field>
         </v-responsive>
       </v-container>
@@ -42,29 +45,32 @@
             <v-sheet rounded="lg">
               <v-list color="transparent">
                 <v-list-item
-                  v-for="n in 5"
+                  v-for="(link, n) in sidebarLinks"
                   :key="n"
                   link
                 >
                   <v-list-item-content>
                     <v-list-item-title>
-                      List Item {{ n }}
+                      {{ link.title }}
                     </v-list-item-title>
                   </v-list-item-content>
                 </v-list-item>
 
                 <v-divider class="my-2"></v-divider>
 
-                <v-list-item
+                <inertia-link
+                  :href="$routes.destroy_user_session()"
+                  method="delete"
+                  as="v-list-item"
                   link
                   color="grey lighten-4"
                 >
                   <v-list-item-content>
                     <v-list-item-title>
-                      Refresh
+                      Cerrar Sesión
                     </v-list-item-title>
                   </v-list-item-content>
-                </v-list-item>
+                </inertia-link>
               </v-list>
             </v-sheet>
           </v-col>
@@ -92,14 +98,26 @@ export default {
   components: {
     FlashMessages,
   },
-  data: () => ({
-    links: [
-      'Dashboard',
-      'Messages',
-      'Profile',
-      'Updates',
-    ],
-  }),
+  computed: {
+    navbarLinks: () => ([
+      { title: 'Link 1', href: '/'},
+      { title: 'Link 2', href: '/'},
+      { title: 'Link 3', href: '/'},
+      { title: 'Link 4', href: '/'},
+    ]),
+    sidebarLinks: () => ([
+      { title: 'Link 5', href: '/'},
+      { title: 'Link 6', href: '/'},
+      { title: 'Link 7', href: '/'},
+      { title: 'Link 8', href: '/'},
+    ]),
+    allNavigationLinks: () => (this.navbarLinks.concat(this.sidebarLinks))
+  },
+  methods: {
+    handleSignOut () {
+      this.$inertia.delete(this.$routes.destroy_user_session())
+    }
+  }
 }
 </script>
 

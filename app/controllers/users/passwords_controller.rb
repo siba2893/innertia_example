@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 class Users::PasswordsController < Devise::PasswordsController
+  include Inertiable
   # GET /resource/password/new
-  # def new
-  #   super
-  # end
+  def new
+    super
+    render inertia: 'auth/ForgotPassword', props: { resource: resource }
+  end
 
   # POST /resource/password
   # def create

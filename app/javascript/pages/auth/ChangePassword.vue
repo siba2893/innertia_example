@@ -21,15 +21,25 @@
             @submit.prevent
           >
             <v-text-field
-              v-model="email"
-              label="Correo"
-              type="email"
+              v-model="form.password"
+              label="Contraseña"
+              type="password"
               outlined
               dense
               validate-on-blur
-              :rules="emailValidation"
-              @keydown.enter="handleSubmit"
+              :rules="validations.password"
             ></v-text-field>
+
+            <v-text-field
+              v-model="form.password_confirmation"
+              label="Confirmar Contraseña"
+              type="password"
+              outlined
+              dense
+              validate-on-blur
+              :rules="validations.passwordConfirmation"
+            ></v-text-field>
+
             <v-row no-gutters justify="space-between">
               <v-col cols="12" md="6">
                 <v-btn
@@ -66,30 +76,42 @@ export default {
   name: "ForgotPassword",
   layout: AuthLayout,
   props: {
-    resource: Object
+    resource: Object,
+    token: String,
   },
   data() {
     return {
       valid: true,
       loading: false,
-      email: ""
+      form: {}
     };
   },
   computed: {
-    emailValidation () {
-      return [InputValidators.required, InputValidators.validEmail];
+    validations() {
+      return {
+        password: [InputValidators.required, InputValidators.min(8)],
+        passwordConfirmation: [
+          InputValidators.required,
+          InputValidators.min(8),
+          InputValidators.sameAs(this.form.password, "Contraseña")
+        ]
+      };
     }
   },
   methods: {
     async handleSubmit() {
       try {
         if (this.$refs.form.validate()) {
-          this.$inertia.post(this.$routes.user_password(), { user: { email: this.email } })
+          this.form.reset_password_token = this.token
+          this.$inertia.put(this.$routes.user_password(), { user: this.form })
         }
       } catch (e) {
         this.loading = false;
       }
     }
+  },
+  mounted () {
+    console.log(this.$props)
   }
 }
 </script>

@@ -60,3 +60,7 @@ gem "inertia_rails", "~> 1.11"
 gem "js-routes", "~> 2.0"
 
 gem "devise", "~> 4.8"
+
+gem "annotate", "~> 3.1"
+
+gem "letter_opener", "~> 1.7"

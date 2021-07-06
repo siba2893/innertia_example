@@ -62,7 +62,7 @@
                   class="white--text"
                   :loading="loading"
                   :disabled="loading"
-                  href="/users/registrations/new"
+                  href="/users/sign_up"
                 >
                   Crear Cuenta
                 </v-btn>

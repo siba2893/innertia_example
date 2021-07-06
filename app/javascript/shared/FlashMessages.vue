@@ -1,17 +1,16 @@
 <template>
   <div v-if="show">
+    <!--    TODO: Fix Alerts showing only once    -->
     <v-alert
       v-if="$page.props.flash.success"
       type="success"
       dismissible>
-      Perro Gigante
       {{ $page.props.flash.success }}
     </v-alert>
     <v-alert
       v-if="$page.props.flash.notice"
       type="info"
       dismissible>
-      Perro Gigante
       {{ $page.props.flash.notice }}
     </v-alert>
     <v-alert

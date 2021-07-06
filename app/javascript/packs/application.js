@@ -29,8 +29,6 @@ InertiaProgress.init()
 // will use Rails application.html.erb layout page
 const el = document.getElementById('app')
 
-console.log(vuetify)
-
 new Vue({
   vuetify,
   render: h => h(App, {

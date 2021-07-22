@@ -1,23 +1,25 @@
 <template>
-  <div v-if="show">
-    <!--    TODO: Fix Alerts showing only once    -->
+  <div v-if="alert">
     <v-alert
-      v-if="$page.props.flash.success"
+      v-if="alert.success"
+      v-model="show"
       type="success"
       dismissible>
-      {{ $page.props.flash.success }}
+      {{ alert.success }}
     </v-alert>
     <v-alert
-      v-if="$page.props.flash.notice"
+      v-if="alert.notice"
+      v-model="show"
       type="info"
       dismissible>
-      {{ $page.props.flash.notice }}
+      {{ alert.notice }}
     </v-alert>
     <v-alert
-      v-if="$page.props.flash.alert"
+      v-if="alert.alert"
+      v-model="show"
       type="error"
       dismissible>
-      {{ $page.props.flash.alert }}
+      {{ alert.alert }}
     </v-alert>
   </div>
 </template>
@@ -27,13 +29,15 @@ export default {
   name: "FlashMessages",
   data() {
     return {
-      show: true
+      show: true,
+      alert: null
     }
   },
-  methods: {
-    capitalize(word) {
-      return word.charAt(0).toUpperCase() + word.slice(1)
-    },
+  watch: {
+    '$page.props.flash' (v) {
+      this.alert = v ? { ...v } : null
+      this.show = !!v
+    }
   }
 }
 </script>
